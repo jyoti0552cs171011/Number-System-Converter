@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <title>Bainary</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            color: white
+        }
+        .image{
+            background-image: url('628633-free-study-wallpaper-in-psd.jpg');
+            height: 100%; 
+
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
+</head>
+<body class="image">
+        <center>
+            <div class="container mt-5">
+                <div class="col-sm-6">
+                    <h1>Number Converter</h1>
+                    <form class="form-group">
+                        <div>
+                            <label for="inputNumber">Enter Number :-</label>
+                            <input class="form-control" id="inputNumber" type="text" name="number" onchange="inputfunction()" /><br />
+                            <label for="inputNumber">Result is :-</label>
+                            <input class="form-control" id="resultNumber" type="text" name="text"  />
+
+                        </div>
+        
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <div>
+                                    <label for="inputFrom">From</label>
+                                    <select class="form-control" id="dropdown1" onchange="drop()">
+                                        <option value="1">Decimal</option>
+                                        <option value="2">Hexadecimal</option>
+                                        <option value="3">Binary</option>
+                                        <option value="4">Octa</option>
+                                        
+                                    </select>
+                                </div>
+                            </div>
+        
+                            <div class="col-sm-2">
+                                <button class="btn btn-primary mt-3" type="button" id="switch" >Swap</button>
+                            </div>
+        
+                            <div class="col-sm-5">
+                                <div>
+                                    <label for="inputTo" >To</label>
+                                    <select class="form-control" id="dropdown2" onchange="drop()">
+                                        <option value="3">Binary</option>
+                                        <option value="2">Hexadecimal</option>
+                                        <option value="1">Decimal</option>
+                                        <option value="4">Octa</option>
+                                        
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <button class="btn btn-primary mt-3 form-control" type="button" onclick="converter()">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </center>
+
+</body>
+    <script>
+        
+        var value1=0,value2=0,value3=0;
+
+        function inputfunction()
+        {
+            var e2 = document.getElementById("inputNumber");
+            value3 = e2.value;
+            
+            console.log(value3);
+
+        }
+
+        function converter()
+        {
+
+            //e.preventDefault();
+           
+            inputfunction();
+            drop();
+          console.log(value1);
+
+            if(value1 == 1 && value2 == 3)
+            {
+                decimalToBinary(value3);
+            }
+            else if(value1 == 1 && value2 == 2)
+            {
+                decToHexa(value3);
+            }
+            else if(value1 == 1 && value2 == 4)
+            {
+                var n = parseInt(value3);
+                decToOctal(n)
+            }
+            else if(value1 == 2 && value2 == 3)
+            {
+                var n = parseInt(value3);
+                hex2bin(n);
+            }
+            else if(value1 == 2 && value2 == 1)
+            {
+                hexadecimalToDecimal(value3);
+            }
+            else if(value1 == 2 && value2 == 4)
+            {
+                hextoOctal(value3);
+            }
+            else if(value1 == 3 && value2 == 2)
+            {
+                var sd  = binaryToHex(value3);
+                // console.log(sd.result);
+            }
+            else if(value1 == 3 && value2 == 1)
+            {
+                binaryToDecimal(value3);
+            }
+            else if(value1 == 3 && value2 == 4)
+            {
+                convertBinToOct(value3);
+            }
+            else if(value1 == 4 && value2 == 3)
+            {
+                OctToBin(value3);
+            }
+            else if(value1 == 4 && value2 == 2)
+            {
+                octaToHexadecimal(value3)
+            }
+            else if(value1 == 4 && value2 == 1)
+            {
+                octalToDecimal(value3);
+            }
+            else if(value1 == 1 && value2 == 1 || value1 == 2 && value2 == 2 || value1 == 3 && value2 == 3 || value1 == 4 && value2 == 4)
+            {
+                alert("Same type Number System does not converted");
+            }
+        }
+
+        // function swaping()
+        // {
+        //     //e.preventDefault()
+        //     console.log();
+            
+        const select1 = document.getElementById("dropdown1");
+        const select2 = document.getElementById("dropdown2");
+        const swapButton = document.getElementById("switch");
+
+        swapButton.addEventListener("click" , (e)=>{
+            e.preventDefault();
+            document.getElementById("inputNumber").value='';
+            document.getElementById("resultNumber").value='';
+            let v = select2.value;
+            let b = select1.value;
+            select1.value = v;
+            select2.value = b;
+        })
+
+            // document.getElementById("switch").onclick = function() {
+            // // document.getElementById("inputNumber").value='';
+            // // document.getElementById("resultNumber").value='';
+            // var drop1 = document.getElementById("dropdown1");
+            // var drop2 = document.getElementById("dropdown2");
+            // var tempHTML = drop1.innerHTML;
+
+            // drop1.innerHTML = drop2.innerHTML;
+            // drop2.innerHTML = tempHTML;
+
+            // console.log("sfhfjdhgjk");
+
+            // }
+        //}
+
+        function drop()
+        {
+            var e = document.getElementById("dropdown1");
+            value1 = e.options[e.selectedIndex].value;
+            console.log(value1);
+
+            var e1 = document.getElementById("dropdown2");
+            value2 = e1.options[e1.selectedIndex].value;
+            console.log(value2);
+        }
+
+        function decimalToBinary(num)
+        {
+            var bin = [];
+            while (num > 0) {
+            bin.unshift(num % 2);
+            num >>= 1;
+            }
+            var s1 = "dr;qkewfkljf";
+            console.log("That decimal in binary is " + bin.join(''));
+            document.getElementById("resultNumber").value=bin.join('');
+        }
+
+        function decToHexa(n)
+        {
+            let number = parseInt(n);
+            let hexStr = number.toString(16);
+            document.getElementById("resultNumber").value=hexStr;
+        }
+
+        function decToOctal(n)
+        {
+           
+            let octalNum = new Array(100);
+
+            let i = 0;
+            while (n != 0) {
+
+                octalNum[i] = n % 8;
+                n = Math.floor(n / 8);
+                i++;
+            }
+
+            var s1 ="";
+            for (let j = i - 1; j >= 0; j--)
+            {
+                s1 = s1+octalNum[j];
+            }
+            document.getElementById("resultNumber").value=s1;
+                
+                
+        }
+
+        function hex2bin(hex) {
+            document.getElementById("resultNumber").value=(parseInt(hex, 16).toString(2)).padStart(8, '0');
+            // console.log(harsh);
+            // document.getElementById("resultNumber").value=harsh;
+        }
+
+        function hextoOctal(n)
+        {
+            let str = parseInt(n,16).toString(8);
+            document.getElementById("resultNumber").value=str;
+
+        }
+        
+        function hexadecimalToDecimal(hexVal)
+        {
+            var len = hexVal.length;
+        
+            var base = 1;
+        
+            var dec_val = 0;
+        
+            
+            for (var i = len - 1; i >= 0; i--) {
+               
+                if (hexVal.charAt(i) >= '0'
+                    && hexVal.charAt(i) <= '9') {
+                    dec_val += (hexVal.charAt(i).charCodeAt(0) - 48) * base;
+        
+                    base = base * 16;
+                }
+        
+                else if (hexVal.charAt(i) >= 'A'
+                        && hexVal.charAt(i) <= 'F') {
+                    dec_val += (hexVal.charAt(i).charCodeAt(0) - 55) * base;
+        
+                    base = base * 16;
+                }
+            }
+            document.getElementById("resultNumber").value=dec_val;
+        }
+
+
+        function binaryToHex(s) {
+        var i, k, part, accum, ret = '';
+        for (i = s.length-1; i >= 3; i -= 4) {
+            
+            part = s.substr(i+1-4, 4);
+            accum = 0;
+            for (k = 0; k < 4; k += 1) {
+                if (part[k] !== '0' && part[k] !== '1') {
+                   
+                    return { valid: false };
+                }
+                
+                accum = accum * 2 + parseInt(part[k], 10);
+            }
+            if (accum >= 10) {
+                
+                ret = String.fromCharCode(accum - 10 + 'A'.charCodeAt(0)) + ret;
+            } else {
+               
+                ret = String(accum) + ret;
+            }
+        }
+       
+        if (i >= 0) {
+            accum = 0;
+            
+            for (k = 0; k <= i; k += 1) {
+                if (s[k] !== '0' && s[k] !== '1') {
+                    return { valid: false };
+                }
+                accum = accum * 2 + parseInt(s[k], 10);
+            }
+           
+            ret = String(accum) + ret;
+        }
+        document.getElementById("resultNumber").value=ret;
+    }
+
+
+        function binaryToDecimal(n)
+        {
+            let num = n;
+            let dec_value = 0;
+        
+            
+            let base = 1;
+        
+            let temp = num;
+            while (temp) {
+                let last_digit = temp % 10;
+                temp = Math.floor(temp / 10);
+        
+                dec_value += last_digit * base;
+        
+                base = base * 2;
+            }
+        
+            document.getElementById("resultNumber").value=dec_value;
+        }
+
+
+        function createMap(um)
+        {
+            um.set("000", '0');
+            um.set("001", '1');
+            um.set("010", '2');
+            um.set("011", '3');
+            um.set("100", '4');
+            um.set("101", '5');
+            um.set("110", '6');
+            um.set("111", '7');
+        }
+        
+        function convertBinToOct(bin)
+        {
+            
+            let l = bin.length;
+            let t = bin.indexOf('.');
+                   
+            let len_left = t != -1 ? t : l;
+        
+            for(let i = 1;
+                    i <= (3 - len_left % 3) % 3;
+                    i++)
+                bin = '0' + bin;
+        
+            if (t != -1)
+            {
+                
+                let len_right = l - len_left - 1;
+        
+                for(let i = 1;
+                        i <= (3 - len_right % 3) % 3;
+                        i++)
+                    bin = bin + '0';
+            }
+                   
+            let bin_oct_map = new Map();
+        
+            createMap(bin_oct_map);
+        
+            let i = 0;
+            let octal = "";
+        
+            while (true)
+            {
+              
+                octal += bin_oct_map.get(bin.substr(i, 3));
+                i += 3;
+        
+                if (i == bin.length)
+                    break;
+        
+                if (bin.charAt(i) == '.')
+                {
+                    octal += '.';
+                    i++;
+                }
+            }
+        
+            document.getElementById("resultNumber").value=octal;
+        }
+
+
+        function OctToBin(octnum)
+        {
+            let i = 0;
+        
+            let binary = "";
+            
+            while (i<octnum.length) {
+                
+                let c=octnum[i];
+                switch (c) {
+                case '0':
+                    binary += "000";
+                    break;
+                case '1':
+                    binary += "001";
+                    break;
+                case '2':
+                    binary += "010";
+                    break;
+                case '3':
+                    binary += "011";
+                    break;
+                case '4':
+                    binary += "100";
+                    break;
+                case '5':
+                    binary += "101";
+                    break;
+                case '6':
+                    binary += "110";
+                    break;
+                case '7':
+                    binary += "111";
+                    break;
+                default:
+                    document.write( "<br>Invalid Octal Digit "+ octnum[i]);
+                    break;
+                }
+                i++;
+            }
+        
+            document.getElementById("resultNumber").value=binary;
+        }
+
+
+        function octalToDecimal(n)
+        {
+            let num = n;
+            let dec_value = 0;
+                    
+            let base = 1;
+        
+            let temp = num;
+            while (temp) {
+                      
+                let last_digit = temp % 10;
+                temp = Math.floor(temp / 10);
+                      
+                dec_value += last_digit * base;
+        
+                base = base * 8;
+            }
+        
+            document.getElementById("resultNumber").value=dec_value;
+        }
+
+
+        function octaToHexadecimal(n)
+        {
+            let num = n;
+            let dec_value = 0;
+                    
+            let base = 1;
+        
+            let temp = num;
+            while (temp) {
+        
+                let last_digit = temp % 10;
+                temp = Math.floor(temp / 10);
+                       
+                dec_value += last_digit * base;
+        
+                base = base * 8;
+            }
+            let hexStr = dec_value.toString(16);
+            document.getElementById("resultNumber").value=hexStr.toUpperCase();
+
+        }
+
+        // var e = document.getElementById("dropdown1");
+        // var value = e.options[e.selectedIndex].value;
+        // console.log(value);
+    </script>
+
+</html>
+
